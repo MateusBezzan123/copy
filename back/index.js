@@ -3,7 +3,8 @@ const express = require('express');
 const Papa = require('papaparse');
 const multer = require('multer');
 const fs = require('fs');
-const XLSX = require('xlsx'); 
+const XLSX = require('xlsx');
+const cors = require('cors');
 
 const pool = new Pool({
   user: 'postgres',
@@ -13,10 +14,14 @@ const pool = new Pool({
   port: 5432,
 });
 
+
 const app = express();
 const upload = multer({ dest: 'uploads/' });
 
 app.use(express.json());
+app.use(cors({
+  origin: 'http://localhost:8080' // Permitir apenas solicitações do seu frontend
+}));
 
 const PORT = 3000;
 
